@@ -8,6 +8,7 @@ import us.codecraft.webmagic.model.OOSpider;
 import us.codecraft.webmagic.model.annotation.ExtractBy;
 import us.codecraft.webmagic.model.annotation.TargetUrl;
 import util.CrawlerUtil;
+import util.IndexUtil;
 
 
 /**
@@ -21,11 +22,12 @@ public class CityCrawler implements AfterExtractor {
     private String cityName;    // 城市名称
 
     public static void main(String[] args) {
-        OOSpider.create(Site.me(), new ConsolePageModelPipeline(), CityCrawler.class).addUrl("http://zhaopin.baidu.com/").thread(3).run();
+        OOSpider.create(Site.me(), new ConsolePageModelPipeline(), CityCrawler.class).addUrl("http://zhaopin.baidu.com/").thread(1).run();
     }
 
     @Override
     public void afterProcess(Page page) {
-        CrawlerUtil.appendContent("c:\\Dev\\city.txt", cityName);
+        //CrawlerUtil.appendContent("c:\\Dev\\city.txt", cityName);
+        IndexUtil.createIndex(cityName);
     }
 }
